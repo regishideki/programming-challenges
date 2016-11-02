@@ -33,8 +33,10 @@ class MatrixRegionSum
     initial_to_bottom_right(top_left, bottom_right) - 
     initial_to_top_right(top_left, bottom_right) - 
     initial_to_bottom_left(top_left, bottom_right) + 
-    initial_to_bottom_left(top_left, bottom_right)
+    initial_to_top_left(top_left, bottom_right)
   end
+
+  private
 
   def initial_to_bottom_right(top_left, bottom_right)
     @cache[bottom_right.x][bottom_right.y]
@@ -52,8 +54,8 @@ class MatrixRegionSum
     @cache[top_left.x - 1][bottom_right.y]
   end
 
-  def initial_to_bottom_left(top_left, bottom_right)
-    return 0 if top_left.x > 0 && top_left.y > 0
+  def initial_to_top_left(top_left, bottom_right)
+    return 0 if top_left.x == 0 || top_left.y == 0
 
     @cache[top_left.x - 1][top_left.y - 1]
   end

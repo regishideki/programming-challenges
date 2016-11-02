@@ -64,5 +64,21 @@ describe MatrixRegionSum do
         expect(subject.sum(matrix, top_left, bottom_right)).to eq 10
       end
     end
+
+    context 'when the region are not in borders' do 
+      it 'return the sum of the region' do 
+        matrix = [
+          [1, 2, 3, 10], 
+          [3, 4, 5, 100],
+          [6, 7, 8, 1000],
+          [9, 10, 11, 1000]
+        ]
+
+        top_left = Point.new(1, 1)
+        bottom_right = Point.new(2, 2)
+
+        expect(subject.sum(matrix, top_left, bottom_right)).to eq 24
+      end
+    end
   end
 end
