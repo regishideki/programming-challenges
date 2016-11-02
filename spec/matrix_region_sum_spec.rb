@@ -44,8 +44,8 @@ describe MatrixRegionSum do
           [3, 4]
         ]
 
-        top_left = [0, 0]
-        bottom_right = [1, 1]
+        top_left = Point.new(0, 0)
+        bottom_right = Point.new(1, 1)
 
         expect(subject.sum(matrix, top_left, bottom_right)).to eq 10
       end
@@ -58,8 +58,8 @@ describe MatrixRegionSum do
           [3, 4, 5]
         ]
 
-        top_left = [0, 0]
-        bottom_right = [1, 1]
+        top_left = Point.new(0, 0)
+        bottom_right = Point.new(1, 1)
 
         expect(subject.sum(matrix, top_left, bottom_right)).to eq 10
       end
