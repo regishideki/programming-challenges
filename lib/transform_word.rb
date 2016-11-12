@@ -35,6 +35,32 @@ class Graph
     @hash = {}
   end
 
+  def smallest_path(start, goal)
+    paths = [[start]]
+    extended = Set.new
+
+    while paths.any?
+      current_path = paths.shift
+      current_word = current_path.last
+
+      return current_path if current_word == goal
+
+      next if extended.include?(current_word)
+
+      extended << current_word
+
+      neighbors(current_word).each do |word|
+        paths << (current_path + [word]) unless current_path.include?(word)
+      end
+    end
+
+    return []
+  end
+
+  def neighbors(word)
+    hash[word]
+  end
+
   def link_words(w1, w2)
     hash[w1] ||= Set.new
     hash[w2] ||= Set.new

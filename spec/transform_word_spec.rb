@@ -1,10 +1,10 @@
 require 'transform_word'
 
 describe TransformWord do
-  context 'when building the graph' do
-    let(:dictionary) { ['cat', 'at', 'bat', 'ed', 'bed', 'bet', 'ad'] }
-    let(:graph) { subject.build_graph(dictionary) }
+  let(:dictionary) { ['cat', 'at', 'bat', 'ed', 'bed', 'bet', 'ad'] }
+  let(:graph) { subject.build_graph(dictionary) }
 
+  context 'when building the graph' do
     it 'has 8 pairs of links' do
       count = graph.to_h.reduce(0) do |result, (_, array)|
         result + array.size
@@ -43,6 +43,20 @@ describe TransformWord do
 
     it 'links "ad" and "ed"' do
       expect(graph.linked?('ad', 'ed')).to be true
+    end
+  end
+
+  context 'when trying to find smallest path between two words' do 
+    it 'returns smallest path when start and goal are equal' do 
+      expect(graph.smallest_path('at', 'at')).to eq ['at']
+    end
+
+    it 'return smallet path when start and goal are neighbors' do 
+      expect(graph.smallest_path('at', 'cat')).to eq ['at', 'cat']
+    end
+
+    it 'returns smallet path when start and goal are far from each other' do 
+      expect(graph.smallest_path('cat', 'bed')).to eq ['cat', 'bat', 'bet', 'bed']
     end
   end
 end
