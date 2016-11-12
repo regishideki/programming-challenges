@@ -37,7 +37,7 @@ class Graph
 
   def smallest_path(start, goal)
     paths = [[start]]
-    extended = Set.new
+    visited = Set.new
 
     while paths.any?
       current_path = paths.shift
@@ -45,12 +45,12 @@ class Graph
 
       return current_path if current_word == goal
 
-      next if extended.include?(current_word)
+      next if visited.include?(current_word)
 
-      extended << current_word
+      visited << current_word
 
-      neighbors(current_word).each do |word|
-        paths << (current_path + [word]) unless current_path.include?(word)
+      neighbors(current_word).each do |neighbor|
+        paths << (current_path + [neighbor]) unless current_path.include?(neighbor)
       end
     end
 

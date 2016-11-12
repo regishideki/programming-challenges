@@ -1,7 +1,7 @@
 require 'transform_word'
 
 describe TransformWord do
-  let(:dictionary) { ['cat', 'at', 'bat', 'ed', 'bed', 'bet', 'ad'] }
+  let(:dictionary) { ['cat', 'at', 'bat', 'ed', 'bed', 'bet', 'ad', 'test'] }
   let(:graph) { subject.build_graph(dictionary) }
 
   context 'when building the graph' do
@@ -47,6 +47,10 @@ describe TransformWord do
   end
 
   context 'when trying to find smallest path between two words' do 
+    it 'returns an empty path when there is not path between start and goal' do 
+      expect(graph.smallest_path('at', 'test')).to be_empty
+    end
+
     it 'returns smallest path when start and goal are equal' do 
       expect(graph.smallest_path('at', 'at')).to eq ['at']
     end
