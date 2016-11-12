@@ -5,9 +5,9 @@ describe TransformWord do
     let(:dictionary) { ['cat', 'at', 'bat', 'ed', 'bed', 'bet', 'ad'] }
     let(:graph) { subject.build_graph(dictionary) }
 
-    it 'has 8 links' do
-      count = graph.to_a.reduce(0) do |result, line|
-        result + line.count { |item| item == true }
+    it 'has 8 pairs of links' do
+      count = graph.to_h.reduce(0) do |result, (_, array)|
+        result + array.size
       end
 
       expect(count).to eq 16

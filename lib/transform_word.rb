@@ -2,7 +2,7 @@ class TransformWord
   LETTERS = ('a'..'z').to_a
 
   def build_graph(dictionary)
-    dictionary.each_with_object(Graph.new(dictionary)) do |word, graph|
+    dictionary.each_with_object(Graph.new) do |word, graph|
       word.size.times do |char_index|
         word_without_one_char = without_one_char(word, char_index) 
         
@@ -23,40 +23,35 @@ class TransformWord
 
   private
 
-  def link_words(graph, index_word_1, index_word_2)
-    graph[index_word_1][index_word_2] = graph[index_word_2][index_word_1] = true
-  end
-
   def without_one_char(word, char_index_removed)
     word[0...char_index_removed] + word[(char_index_removed + 1)..-1]
   end
 end
 
+require 'set'
+
 class Graph
-  def initialize(dictionary)
-    @dictionary = dictionary
-    @graph = Array.new(dictionary.size) { Array.new(dictionary.size) }
+  def initialize
+    @hash = {}
   end
 
   def link_words(w1, w2)
-    index_w1 = dictionary.find_index(w1)
-    index_w2 = dictionary.find_index(w2)
+    hash[w1] ||= Set.new
+    hash[w2] ||= Set.new
 
-    graph[index_w1][index_w2] = graph[index_w2][index_w1] = true
+    hash[w1] << w2
+    hash[w2] << w1
   end
 
   def linked?(w1, w2)
-    index_w1 = dictionary.find_index(w1)
-    index_w2 = dictionary.find_index(w2)
-
-    graph[index_w1][index_w2] && graph[index_w2][index_w1]
+    hash[w1].include?(w2) && hash[w2].include?(w1)
   end
 
-  def to_a
-    @graph
+  def to_h
+    hash
   end
 
   private 
 
-  attr_reader :graph, :dictionary
+  attr_reader :hash
 end
