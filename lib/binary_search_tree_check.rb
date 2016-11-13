@@ -1,6 +1,6 @@
 class BinarySearchTreeCheck
   def initialize
-    @current_element = -999999999999999
+    @current_element = - Float::INFINITY
   end
 
   def bst?(tree)
