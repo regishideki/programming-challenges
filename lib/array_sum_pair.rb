@@ -1,26 +1,22 @@
 require 'set'
 
 class ArraySumPair
-  def pairs(elements, target)
-    elements = elements.sort
-
-    left = 0
-    right = elements.size - 1
-
+  def pairs(numbers, target)
     result = Set.new([])
+    seen = Set.new([])
 
-    while left < right do
-      sum = elements[left] + elements[right]
-      if sum == target
-        result << [elements[left], elements[right]]
-        left += 1
-      elsif sum < target
-        left += 1
+    numbers.each do |number|
+      current_target = target - number
+      if seen.include?(current_target)
+        result.add([
+          [number, current_target].min, 
+          [number, current_target].max
+        ])
       else
-        right -= 1
-      end 
+        seen << number
+      end
     end
 
-    result 
+    result
   end
 end

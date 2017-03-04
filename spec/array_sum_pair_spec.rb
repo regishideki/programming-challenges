@@ -8,7 +8,7 @@ describe ArraySumPair do
   end
 
   context 'when more than a pair' do 
-    it 'returns the pair when the sum of the pair is equal the value provided' do 
+    it 'returns the pair when the sum of the pair is equal the value provided' do
       expect(subject.pairs([3, 1, 0], 4)).to contain_exactly([1, 3])
     end
 
